@@ -1,7 +1,7 @@
 body {
     background-color: #334155;
     min-width: 300px;
-    min-height: 300px;
+    min-height: 200px;
     align-items: center;
     color: #f1f5f9;
 }
@@ -20,6 +20,17 @@ a:active {
     justify-content: center;
     align-items: center;
     width: 100%;
+}
+
+.content-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-item {
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 .footer {

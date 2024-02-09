@@ -116,15 +116,27 @@ function registerEvents() {
         handleChangeCpf(e.target.value);
     });
 
-    const inputCep = document.getElementById('cep');
-    inputCep.addEventListener('change', (e) => {
-        handleChangeCep(e.target.value);
+
+    chrome.storage.local.get(["always_search_cep"]).then((result) => {
+        const inputCep = document.getElementById('cep');
+        if ((result?.always_search_cep ?? true)) {
+            inputCep.addEventListener('change', (e) => {
+                handleChangeCep(e.target.value);
+            });
+        }
     });
 
-    sugestSeller();
+    chrome.storage.local.get(["always_sugest_seller"]).then((result) => {
+        if ((result?.always_sugest_seller ?? true)) {
+            sugestSeller();
+        }
+    });
+
 }
 
 async function start() {
+
+
     setTimeout(registerEvents, 2000);
 }
 
