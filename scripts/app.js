@@ -9,7 +9,7 @@ function validateCpf(cpf) {
         soma += parseInt(cpf.charAt(i)) * (10 - i);
     }
 
-    const digito1 = 11 - (soma % 11);
+    let digito1 = 11 - (soma % 11);
     if (digito1 > 9) {
         digito1 = 0;
     }
@@ -19,7 +19,7 @@ function validateCpf(cpf) {
         soma += parseInt(cpf.charAt(i)) * (11 - i);
     }
 
-    const digito2 = 11 - (soma % 11);
+    let digito2 = 11 - (soma % 11);
     if (digito2 > 9) {
         digito2 = 0;
     }
@@ -51,7 +51,7 @@ function validateCnpj(cnpj) {
     return parseInt(cnpj.charAt(12)) === digito1 && parseInt(cnpj.charAt(13)) === digito2;
 }
 
-function handleValidateCpf(value) {
+function handleChangeCpf(value) {
     if (!value) {
         return;
     }
@@ -77,10 +77,10 @@ function handleValidateCpf(value) {
 }
 
 function registerEvents() {
-    const input = document.getElementById('cpf');
+    const inputCpf = document.getElementById('cpf');
 
-    input.addEventListener('change', (e) => {
-        handleValidateCpf(e.target.value);
+    inputCpf.addEventListener('change', (e) => {
+        handleChangeCpf(e.target.value);
     });
 }
 
