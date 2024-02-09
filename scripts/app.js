@@ -98,7 +98,6 @@ function registerEvents() {
 }
 
 async function start() {
-    console.log("Hello from CPF/CNPJ validator");
     setTimeout(registerEvents, 2000);
 }
 
