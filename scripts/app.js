@@ -37,14 +37,14 @@ function validateCnpj(cnpj) {
 
     let soma = 0;
     for (let i = 0; i < 12; i++) {
-        soma += parseInt(cnpj.charAt(i)) * pesos[i];
+        soma += parseInt(cnpj.charAt(i)) * pesos[i + 1];
     }
 
     const digito1 = soma % 11 < 2 ? 0 : 11 - (soma % 11);
 
     soma = 0;
     for (let i = 0; i < 13; i++) {
-        soma += parseInt(cnpj.charAt(i)) * pesos[i + 1];
+        soma += parseInt(cnpj.charAt(i)) * pesos[i];
     }
 
     const digito2 = soma % 11 < 2 ? 0 : 11 - (soma % 11);
