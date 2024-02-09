@@ -76,11 +76,24 @@ function handleChangeCpf(value) {
     }
 }
 
+function handleChangeCep(value) {
+    const inputCep = document.getElementById('cep');
+    const container = inputCep.parentNode?.parentNode?.parentNode?.parentNode?.parentNode;
+    if (container) {
+        const button = container.querySelector('button');
+        button.click();
+    }
+}
+
 function registerEvents() {
     const inputCpf = document.getElementById('cpf');
-
     inputCpf.addEventListener('change', (e) => {
         handleChangeCpf(e.target.value);
+    });
+
+    const inputCep = document.getElementById('cep');
+    inputCep.addEventListener('change', (e) => {
+        handleChangeCep(e.target.value);
     });
 }
 
