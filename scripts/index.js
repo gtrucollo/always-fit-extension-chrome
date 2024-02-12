@@ -1,39 +1,27 @@
-function handleChangeSugestSeller(value) {
-    chrome.storage.local.set({ always_sugest_seller: value });
-}
+const storage = chrome.storage.local;
+const inputSearchCep = document.getElementById('search-cep');
 
-function handleChangeSearchCep(value) {
-    chrome.storage.local.set({ always_search_cep: value });
+async function handleChangeSearchCep(value) {
+    await storage.set({ always_search_cep: value });
 }
 
 function registerEvents() {
-    const inputSugestSeller = document.getElementById('sugest-seller');
-    inputSugestSeller.addEventListener('change', (e) => {
-        handleChangeSugestSeller(e.target.checked);
-    });
-
-    const inputSearchCep = document.getElementById('search-cep');
     inputSearchCep.addEventListener('change', (e) => {
         handleChangeSearchCep(e.target.checked);
     });
 }
 
 function loadData() {
-    const inputSugestSeller = document.getElementById('sugest-seller');
-    const inputSearchCep = document.getElementById('search-cep');
-
-    chrome.storage.local.get(["always_sugest_seller"]).then((result) => {
-        inputSugestSeller.checked = result?.always_sugest_seller ?? true;
-    });
-
-    chrome.storage.local.get(["always_search_cep"]).then((result) => {
-        inputSearchCep.checked = result?.always_search_cep ?? true;
+    storage.get('always_search_cep', function (items) {
+        if (items.always_search_cep) {
+            inputSearchCep.setAttribute('checked', 'checked');
+        }
     });
 }
 
-async function start() {
+function start() {
     loadData();
-    setTimeout(registerEvents, 2000);
+    registerEvents();
 }
 
 start();

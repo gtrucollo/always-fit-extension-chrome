@@ -85,58 +85,23 @@ function handleChangeCep(value) {
     }
 }
 
-function sugestSeller() {
-    const inputSeller = document.getElementById('seller');
-
-    for (const div of document.querySelectorAll("div")) {
-        if (!(div.textContent.includes("Olá, ") && (div.querySelector('span')))) {
-            continue;
-        }
-
-        const name = div.querySelector('span').textContent;
-        if (!name) {
-            continue;
-        }
-
-        const elements = document.getElementsByClassName('el-select-dropdown__item');
-        for (const element of elements) {
-            if (element.textContent !== name) {
-                continue;
-            }
-
-            element.classList.add('selected');
-            inputSeller.value = name;
-        }
-    }
-}
-
 function registerEvents() {
     const inputCpf = document.getElementById('cpf');
     inputCpf.addEventListener('change', (e) => {
         handleChangeCpf(e.target.value);
     });
 
-
     chrome.storage.local.get(["always_search_cep"]).then((result) => {
         const inputCep = document.getElementById('cep');
-        if ((result?.always_search_cep ?? true)) {
+        if ((result?.always_search_cep ?? false)) {
             inputCep.addEventListener('change', (e) => {
                 handleChangeCep(e.target.value);
             });
         }
     });
-
-    chrome.storage.local.get(["always_sugest_seller"]).then((result) => {
-        if ((result?.always_sugest_seller ?? true)) {
-            sugestSeller();
-        }
-    });
-
 }
 
 async function start() {
-
-
     setTimeout(registerEvents, 2000);
 }
 
