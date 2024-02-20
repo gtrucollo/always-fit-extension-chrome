@@ -1,4 +1,4 @@
-const storage = chrome.storage.local;
+const storage = chrome?.storage.local ?? storage.local;
 const inputSearchCep = document.getElementById('search-cep');
 
 async function handleChangeSearchCep(value) {

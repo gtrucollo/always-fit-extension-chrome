@@ -1,3 +1,5 @@
+const storage = chrome?.storage.local ?? storage.local;
+
 function validateCpf(cpf) {
     cpf = cpf.replace(/[^\d]/g, '');
     if (cpf.length !== 11 || /^(\d)\1+$/g.test(cpf)) {
@@ -91,7 +93,7 @@ function registerEvents() {
         handleChangeCpf(e.target.value);
     });
 
-    chrome.storage.local.get(["always_search_cep"]).then((result) => {
+    storage.local.get(["always_search_cep"]).then((result) => {
         const inputCep = document.getElementById('cep');
         if ((result?.always_search_cep ?? false)) {
             inputCep.addEventListener('change', (e) => {
