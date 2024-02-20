@@ -87,13 +87,28 @@ function handleChangeCep(value) {
     }
 }
 
+function handleOnClickCalcOptions() {
+    for (const cardText of document.getElementsByClassName("card-text")) {
+        let found = 0;
+        for (const child of cardText.childNodes) {
+            if (child.textContent === ' *') {
+                found++;
+                if (found == 2) {
+                    found = 0;
+                    child.textContent = "*";
+                }
+            }
+        }
+    }
+}
+
 function registerEvents() {
     const inputCpf = document.getElementById('cpf');
     inputCpf.addEventListener('change', (e) => {
         handleChangeCpf(e.target.value);
     });
 
-    storage.local.get(["always_search_cep"]).then((result) => {
+    storage.get(["always_search_cep"]).then((result) => {
         const inputCep = document.getElementById('cep');
         if ((result?.always_search_cep ?? false)) {
             inputCep.addEventListener('change', (e) => {
@@ -101,6 +116,16 @@ function registerEvents() {
             });
         }
     });
+
+    for (const button of document.querySelectorAll("button")) {
+        if (!(button.textContent.includes("Calcular opções de frete") && (button.querySelector('span')))) {
+            continue;
+        }
+
+        button.addEventListener('click', (e) => {
+            setTimeout(handleOnClickCalcOptions, 4000);
+        })
+    }
 }
 
 async function start() {
